@@ -1,51 +1,51 @@
 
+(define (reverse lst)
+  (define (go lst tail)
+    (if (null? lst) tail
+        (go (cdr lst) (cons (car lst) tail))))
+  (go lst ()))
+
+;; (reverse (list 1 2 3 4))
+;; (go (list 1 2 3 4) ())
+;; (go (list 2 3 4) (list 1))
+;; (go (list 3 4) (list 2 1))
+;; (go (list 4) (list 3 2 1))
+;; (go () (list 4 3 2 1))
+;; (list 4 3 2 1)
+
+(define (reverse2 lst)
+  (if (null? lst) ()
+      (append (reverse2 (cdr lst)) (list (car lst)))))
+
+;; (reverse2 (list 1 2 3 4))
+;; (append (reverse2 (list 2 3 4)) (list 1))
+;; (append (append (reverse2 (list 3 4)) (list 2)) (list 1))
+;; (append (append (append (reverse2 (list 4)) (list 3)) (list 2)) (list 1))
+;; (append (append (append (append (reverse2 ()) (list 4)) (list 3)) (list 2)) (list 1))
+;; (append (append (append (append () (list 4)) (list 3)) (list 2)) (list 1))
+;; (append (append (append (list 4) (list 3)) (list 2)) (list 1))
+;; (append (append (list 4 3) (list 2)) (list 1))
+;; (append (list 4 3 2) (list 1))
+;; (list 4 3 2 1)
+
+(define (append l1 l2)
+  (if (null? l1) l2
+      (cons (car l1) (append (cdr l1) l2))))
+
+(define (last-pair l)
+  (if (null? (cdr l)) l
+      (last-pair (cdr l))))
+
 (define (length-iter items)
   (define (go items c)
     (if (null? items) c
         (go (cdr items) (+ c 1))))
   (go items 0))
 
-;; (lenght-iter (list 1 2 3 4))
-;; (go (list 1 2 3 4) 0)
-;; (go (list 2 3 4) 1)
-;; (go (list 3 4) 2)
-;; (go (list 4) 3)
-;; (go () 4)
-;; 4
-
 (define (length items)
   (if (null? items) 0
       (+ 1 (length (cdr items)))))
 
-;; (length (list 1 2 3 4))
-;; (+ 1 (length (list 2 3 4)))
-;; (+ 1 (+ 1 (length (list 3 4))))
-;; (+ 1 (+ 1 (+ 1 (length (list 4)))))
-;; (+ 1 (+ 1 (+ 1 (+ 1 (length ())))))
-;; (+ 1 (+ 1 (+ 1 (+ 1 0))))
-;; (+ 1 (+ 1 (+ 1 1)))
-;; (+ 1 (+ 1 2))
-;; (+ 1 3)
-;; 4
-
-
 (define (list-ref items n)
   (if (= n 0) (car items)
       (list-ref (cdr items) (- n 1))))
-
-;; (list-ref (list 1 2 3 4) 3)
-;; (list-ref (cdr (list 1 2 3 4)) (- 3 1))
-;; (list-ref (list 2 3 4) 2)
-;; (list-ref (cdr (list 2 3 4)) (- 2 1))
-;; (list-ref (list 3 4) 1)
-;; (list-ref (cdr (list 3 4)) (- 1 1))
-;; (list-ref (list 4) 0)
-;; (car (list 4))
-;; 4
-
-;; (list-ref (list 1 2) 2)
-;; (list-ref (cdr (list 1 2)) (- 2 1))
-;; (list-ref (list 2) 1)
-;; (list-ref (cdr (list 2)) (- 1 1))
-;; (list-ref () 0)
-;; (car ())?????
