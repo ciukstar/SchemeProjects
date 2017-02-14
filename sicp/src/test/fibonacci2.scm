@@ -1,0 +1,10 @@
+(load "lib/test-manager/load.scm")
+(load "src/main/fibonacci2.scm")
+
+(define-test (fib-iter)
+  (assert-= 0 (fib 0))
+  (assert-= 1 (fib 1))
+  (assert-= 1 (fib 2))
+  (assert-= 2 (fib 3))
+  (assert-= 3 (fib 4))
+  (assert-= 5 (fib 5)))
