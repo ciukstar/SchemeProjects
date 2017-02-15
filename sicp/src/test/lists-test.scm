@@ -1,10 +1,22 @@
 (load "lib/test-manager/load.scm")
 (load "src/main/lists.scm")
 
-(define-test (same-parity-test)
-  (let ((odds (same-parity 1 2 3 4 5 6 7)) (evens (same-parity 2 3 4 5 6 7)))
+
+(define-test (same-parity2-test)
+  (let ((odds (same-parity2 1 2 3 4 5 6 7))
+        (evens (same-parity2 2 3 4 5 6 7)))
     (assert-true (equal? odds (list 1 3 5 7)))
-    (assert-true (equal? evens (list 2 4 6)))))
+    (assert-true (equal? evens (list 2 4 6)))
+    (assert-false (equal? (same-parity2 1) ()))
+    (assert-false (equal? (same-parity2 2) ()))))
+
+(define-test (same-parity-test)
+  (let ((odds (same-parity 1 2 3 4 5 6 7)) 
+        (evens (same-parity 2 3 4 5 6 7)))
+    (assert-true (equal? odds (list 1 3 5 7)))
+    (assert-true (equal? evens (list 2 4 6)))
+    (assert-false (equal? (same-parity 1) ()))
+    (assert-false (equal? (same-parity 2) ()))))
 
 (define-test (equal-test)
   (let ((l1 (list 1 2 3)) 
