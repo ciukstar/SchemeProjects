@@ -1,6 +1,28 @@
 (load "lib/test-manager/load.scm")
 (load "src/main/lists.scm")
 
+(define-test (same-parity-test)
+  (let ((odds (same-parity 1 2 3 4 5 6 7)) (evens (same-parity 2 3 4 5 6 7)))
+    (assert-true (equal? odds (list 1 3 5 7)))
+    (assert-true (equal? evens (list 2 4 6)))))
+
+(define-test (equal-test)
+  (let ((l1 (list 1 2 3)) 
+        (l2 (list 1 2 4)) 
+        (l3 (list 1 2 3))
+        (l4 (list 1 2 3 4)))
+    (assert-false (equal? () l1))
+    (assert-false (equal? l1 ()))
+    (assert-false (equal? l1 l2))
+    (assert-false (equal? l2 l1))
+    (assert-false (equal? l1 l4))
+    (assert-false (equal? l4 l1))
+    (assert-true (equal? () ()))
+    (assert-true (equal? l1 l3))
+    (assert-true (equal? l3 l1))
+    (assert-true (equal? l1 l1))
+    (assert-true (equal? l4 l4))))
+
 (define-test (reverse-test)
   (let ((l (list 1 4 9 16 25)))
     (let ((r (reverse l)))
@@ -13,11 +35,12 @@
 
 (define-test (last-pair-test)
   (let ((l (list 23 72 149 34)))
-    (let ((lst (last-pair l)) (singleton (list 32)))
+    (let ((lst (last-pair l)) 
+          (sngl (list 32)))
       (assert-true (and 
                     (= (length lst) 1)
                     (= (car lst) 34)))
-      (assert-equal (car (last-pair singleton)) 32))))
+      (assert-equal (car (last-pair sngl)) 32))))
 
 (define-test (append-test)
   (let ((l1 (list 1 2 3)) (l2 (list 4 5 6)))

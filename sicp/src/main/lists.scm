@@ -1,32 +1,24 @@
 
+(define (same-parity x . t)
+  (let ((parity (remainder x 2)))
+    (cond ((null? t) ())
+          ((if (= (remainder (car t) 2) parity) (cons (car t) (same-parity x . (cdr t)))
+               (same-parity x . (cdr t)))))))
+
+(define (equal? l1 l2)
+  (cond ((and (null? l1) (null? l2)) #t) 
+        ((or (null? l1) (null? l2) (not (= (car l1) (car l2)))) #f)
+        (else (equal? (cdr l1) (cdr l2)))))
+
 (define (reverse lst)
   (define (go lst tail)
     (if (null? lst) tail
         (go (cdr lst) (cons (car lst) tail))))
   (go lst ()))
 
-;; (reverse (list 1 2 3 4))
-;; (go (list 1 2 3 4) ())
-;; (go (list 2 3 4) (list 1))
-;; (go (list 3 4) (list 2 1))
-;; (go (list 4) (list 3 2 1))
-;; (go () (list 4 3 2 1))
-;; (list 4 3 2 1)
-
 (define (reverse2 lst)
   (if (null? lst) ()
       (append (reverse2 (cdr lst)) (list (car lst)))))
-
-;; (reverse2 (list 1 2 3 4))
-;; (append (reverse2 (list 2 3 4)) (list 1))
-;; (append (append (reverse2 (list 3 4)) (list 2)) (list 1))
-;; (append (append (append (reverse2 (list 4)) (list 3)) (list 2)) (list 1))
-;; (append (append (append (append (reverse2 ()) (list 4)) (list 3)) (list 2)) (list 1))
-;; (append (append (append (append () (list 4)) (list 3)) (list 2)) (list 1))
-;; (append (append (append (list 4) (list 3)) (list 2)) (list 1))
-;; (append (append (list 4 3) (list 2)) (list 1))
-;; (append (list 4 3 2) (list 1))
-;; (list 4 3 2 1)
 
 (define (append l1 l2)
   (if (null? l1) l2
