@@ -1,6 +1,33 @@
 (load "lib/test-manager/load.scm")
 (load "src/main/trees.scm")
 
+(define-test (fringe-test)
+  (define x (list (list 1 2) (list 3 4)))
+  (define r1 (fringe x))
+  (define r2 (fringe (list x x)))
+  (assert-true (equal? r1 (list 1 2 3 4)))
+  (assert-true (equal? r2 (list 1 2 3 4 1 2 3 4))))
+
+(define-test (deep-reverse-test)
+  (define x (list 1 (list 2 3) 4 5 (list 6 7) 8 9))
+  (define r (deep-reverse x))
+  (assert-true (equal? r (list 9 8 (list 7 6) 5 4 (list 3 2) 1))))
+
+(define-test (exercise-2-27)
+  (define x (list (list 1 2) (list 3 4)))
+  (assert-true (equal? (reverse x) (list (list 3 4) (list 1 2)))))
+
+(define-test (reverse-test)
+  (define x (list 1 2 3 4))
+  (assert-true (equal? (reverse x) (list 4 3 2 1))))
+
+(define-test (exercize-2-26)
+  (define x (list 1 2 3))
+  (define y (list 4 5 6))
+  (assert-true (equal? (append x y) (list 1 2 3 4 5 6)))
+  (assert-true (equal? (cons x  y) (list (list 1 2 3) 4 5 6)))
+  (assert-equal (car (car (cdr (list x y)))) 4))
+
 (define-test (exersise-2-25)
   (let ((t (list 1 3 (list 5 7) 9))
         (e (cons 1 (cons 3 (cons (cons 5 (cons 7 ())) (cons 9 ())))))
