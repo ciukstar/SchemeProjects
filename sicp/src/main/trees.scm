@@ -1,5 +1,15 @@
 
-(define (fringe x))
+(define (fringe x)
+  (define (go l a)
+    (cond ((null? l) a)
+          ((not (pair? l)) (cons l a))
+          (else (append (go (car l) a) (go (cdr l) a)))))
+  (go x ()))
+
+;; (fringe (list (list 1 2) (list 3 4)))
+;; (fringe (cons (cons 1 (cons 2 ())) (cons (cons 3 (cons 4 ())) ())))
+;; (go (cons (cons 1 (cons 2 ())) (cons (cons 3 (cons 4 ())) ())) ())
+;; (go )
 
 (define (deep-reverse x)
   (define (go items tail)
