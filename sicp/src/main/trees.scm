@@ -1,4 +1,46 @@
 
+(define (subsets s)
+  (if (null? s) (list ())
+      (let ((rest (subsets (cdr s))))
+        (append rest (map (lambda (x) x)) rest)))))
+
+;; (subsets (list 1 2 3))
+;; (let ((rest (subsets (list 2 3)))) (append rest (map (lambda (x) ()) rest)))
+;; (let ((rest (let ((rest (subsets (list 3)))) (append rest (map ??? rest))))) (append rest (map ??? rest)))
+;; (let ((rest (let ((rest (let ((rest (subsets ()))) (append rest (map ??? rest))))))) (append rest (map ??? rest))))) (append rest (map ??? rest)))
+;; (let ((rest (let ((rest (let ((rest (list ()))) (append rest (map ??? rest))))))) (append rest (map ??? rest))))) (append rest (map ??? rest)))
+
+
+(define (tree-map f tree)
+  (map (lambda (sub-tree)
+         (if (pair? sub-tree)
+             (tree-map f sub-tree)
+             (f sub-tree))) 
+       tree))
+
+(define (square-tree2 x) (tree-map square x))
+
+(define (square-tree x)
+  (cond ((null? x) ())
+        ((not (pair? x)) (square x))
+        (else (cons (square-tree (car x)) (square-tree (cdr x))))))
+
+(define (scale-tree2 x factor)
+  (map (lambda (sub-tree)
+         (if (pair? sub-tree)
+             (scale-tree2 sub-tree factor)
+             (* sub-tree factor))) x))
+
+(define (scale-tree tree factor) 
+  (cond ((null? tree) ())
+        ((not (pair? tree)) (* tree factor))
+        (else (cons (scale-tree (car tree) factor)
+                    (scale-tree (cdr tree) factor)))))
+
+(define (map f x)
+  (if (null? x) ()
+      (cons (f (car x)) (map f (cdr x)))))
+
 (define (fringe x)
   (define (go l a)
     (cond ((null? l) a)

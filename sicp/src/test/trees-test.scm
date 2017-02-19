@@ -1,6 +1,26 @@
 (load "lib/test-manager/load.scm")
 (load "src/main/trees.scm")
 
+(define-test (subsets-test)
+  (define x (list 1 2 3))
+  (define r (subsets x))
+  (assert-true (equal? r (list (), (list 3) (list 2) (list 2 3) (list 1) (list 1 3) (list 1 2) (list 1 2 3)))))
+
+(define-test (square-tree2-test)
+  (define x (list 1 (list 2 (list 3 4) 5) (list 6 7)))
+  (define r (square-tree2 x))
+  (assert-true (equal? r (list 1 (list 4 (list 9 16) 25) (list 36 49)))))
+
+(define-test (square-tree-test)
+  (define x (list 1 (list 2 (list 3 4) 5) (list 6 7)))
+  (define r (square-tree x))
+  (assert-true (equal? r (list 1 (list 4 (list 9 16) 25) (list 36 49)))))
+
+(define (scale-tree-test)
+  (define x (list (list 1 2) (list 3 4)))
+  (define r (scale-tree x 2))
+  (assert-true (equal? r (list (list 2 4) (list 6 8)))))
+
 (define-test (fringe-test)
   (define x (list (list 1 2) (list 3 4)))
   (define r1 (fringe x))
