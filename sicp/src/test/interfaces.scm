@@ -1,0 +1,23 @@
+(load "lib/test-manager/load.scm")
+(load "src/main/interfaces.scm")
+
+(define-test (accumulate-test)
+  (define x (list 1 2 3 4))
+  (define s (accumulate + 0 x))
+  (define p (accumulate * 1 x))
+  (define l (accumulate cons () x))
+  (assert-equal s (+ 1 2 3 4))
+  (assert-equal p (* 1 2 3 4))
+  (assert-true (equal? l x)))
+
+(define-test (filter-test)
+  (define x (list 1 2 3 4))
+  (define o (filter odd? x))
+  (define e (filter even? x))
+  (assert-true (equal? o (list 1 3)))
+  (assert-true (equal? e (list 2 4))))
+
+(define-test (map-test)
+  (define x (list 1 2 3 4))
+  (define r (map square x))
+  (assert-true (equal? r (list 1 4 9 16))))
