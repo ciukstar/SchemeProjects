@@ -2,13 +2,18 @@
 (define (subsets s)
   (if (null? s) (list ())
       (let ((rest (subsets (cdr s))))
-        (append rest (map (lambda (x) x)) rest)))))
+        (append rest (map (lambda (x) (cons (car s) x)) rest)))))
 
 ;; (subsets (list 1 2 3))
-;; (let ((rest (subsets (list 2 3)))) (append rest (map (lambda (x) ()) rest)))
+;; (let ((rest (subsets (list 2 3)))) (append rest (map (lambda ()) rest)))
 ;; (let ((rest (let ((rest (subsets (list 3)))) (append rest (map ??? rest))))) (append rest (map ??? rest)))
-;; (let ((rest (let ((rest (let ((rest (subsets ()))) (append rest (map ??? rest))))))) (append rest (map ??? rest))))) (append rest (map ??? rest)))
+;; (let ((rest (let ((rest (let ((rest (subsets ()))) (append rest (map ??? rest))))))) (append rest (map ??? rest))))) (append rest (map ??? rest))
 ;; (let ((rest (let ((rest (let ((rest (list ()))) (append rest (map ??? rest))))))) (append rest (map ??? rest))))) (append rest (map ??? rest)))
+
+
+(define (map f x)
+  (if (null? x) ()
+      (cons (f (car x)) (map f (cdr x)))))
 
 
 (define (tree-map f tree)
@@ -37,9 +42,6 @@
         (else (cons (scale-tree (car tree) factor)
                     (scale-tree (cdr tree) factor)))))
 
-(define (map f x)
-  (if (null? x) ()
-      (cons (f (car x)) (map f (cdr x)))))
 
 (define (fringe x)
   (define (go l a)
