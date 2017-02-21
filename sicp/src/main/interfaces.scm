@@ -1,4 +1,8 @@
 
+(define (enumerate-interval low high)
+  (if (> low high) ()
+      (cons low (enumerate-interval (+ low 1) high))))
+
 (define (accumulate op initial sequence)
   (if (null? sequence) initial
       (op (car sequence) (accumulate op initial (cdr sequence)))))
@@ -12,22 +16,8 @@
   (if (null? sequence) ()
       (cons (fun (car sequence)) (map fun (cdr sequence)))))
 
-(define (even-fibs n)
-  (define (next k)
-    (if (> k n) ()
-        (let ((f (fib k)))
-          (if (even? f) (cons f (next (+ k 1)))
-              (next (+ k 1))))))
-  (next 0))
-
-(define (sum-odd-squares tree)
-  (cond ((null? tree) 0)
-        ((not (pair? tree)) (if (odd? tree) (square tree) 0))
-        (else (+ (sum-odd-squares (car tree))
-                 (sum-odd-squares (cdr tree))))))
-
-
 (define (fib n)
   (cond ((= n 0) 0)
         ((= n 1) 1)
         (else (+ (fib (- n 1)) (fib (- n 2))))))
+
