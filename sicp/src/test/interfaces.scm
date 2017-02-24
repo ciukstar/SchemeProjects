@@ -22,12 +22,6 @@
   (define r (enumerate-tree t))
   (assert-true (equal? r (list 1 2 3 4 5))))
 
-(define (enumerate-tree tree)
-  (cond ((null? tree) ())
-        ((not (pair? tree)) (list tree))
-        (else (append (enumerate-tree (car tree))
-                      (enumerate-tree (cdr tree))))))
-
 (define-test (enumerate-interval-test)
   (assert-true (equal? (enumerate-interval 2 7) (list 2 3 4 5 6 7))))
 
