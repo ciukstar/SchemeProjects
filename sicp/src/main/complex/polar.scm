@@ -1,19 +1,19 @@
+(load "src/main/complex/tags.scm")
 
-;; Polar representation
+(define (magnitude-polar z) (car z))
 
-(define (magnitude z) (car z))
+(define (angle-polar z) (cdr z))
 
-(define (angle z) (cdr z))
-
-(define (real-part z)
+(define (real-part-polar z)
   (* (magnitude z) (cos (angle z))))
 
-(define (imag-part z)
+(define (imag-part-polar z)
   (* (magnitude z) (sin (angle z))))
 
-(define (make-from-mag-ang r a)
-  (cons r a))
+(define (make-from-mag-ang-polar r a)
+  (attach-tag 'polar (cons r a)))
 
 (define (make-from-real-imag x y)
-  (cons (sqrt (+ (square x) (square y)))
-        (atan y x)))
+  (attach-tag 'polar 
+              (cons (sqrt (+ (square x) (square y))) 
+                    (atan y x))))
